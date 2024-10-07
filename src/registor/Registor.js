@@ -2,14 +2,24 @@ import React from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
 
 
 export default function Registor() {
+
   const navigate = useNavigate();
   const handleClick = (navigationPage) => {
     navigate(navigationPage)
   }
+
+  const { register, handleSubmit, formState: { errors },getValues } = useForm();
+
+
+  const onSubmit = (data) => {
+    console.log('data', data)
+  }
+
   return (
     <div className='Registor'>
 
@@ -19,15 +29,52 @@ export default function Registor() {
           <h1>Sign Up</h1>
         </div>
 
-        <div>
-          <TextField id="standard-basic" label="Email" variant="standard" />
-          <TextField id="standard-basic" label="Password" variant="standard" />
-          <TextField id="standard-basic" label="Confirm Password" variant="standard" />
-        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
 
-        <div>
-          <Button variant="contained" onClick={() => handleClick('/login')}>Sign Up</Button>
-        </div>
+            <div>
+              <TextField id="standard-basic" label="Email" variant="standard"
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                    message: 'Email is not valid'
+                  }
+                })} />
+              {errors.email && <p className='errorMsg' style={{ color: 'red' }}>{errors.email.message}</p>}
+            </div>
+
+            <div>
+              <TextField id="standard-basic" label="Password" variant="standard"
+                {...register('password', {
+                  required: 'Password is required',
+                  minLength: {
+                    value: 8,
+                    message: "password should be at-least 8 characters."
+                  }
+                })} />
+              {errors.password && <p className='errorMsg' style={{ color: 'red' }}>{errors.password.message}</p>}
+            </div>
+
+            <div>
+              <TextField id="standard-basic" label="Confirm Password" variant="standard"
+                {...register('confirmPassword', {
+                  required: 'confirmPassword is required',
+                  minLength: {
+                    value: 8,
+                    message: "password should be at-least 8 characters."
+                  },
+                  validate: (value) => value ===  getValues('password') || 'Passwords do not match'
+                })} />
+              {errors.confirmPassword && <p className='errorMsg' style={{ color: 'red' }}>{errors.confirmPassword.message}</p>}
+            </div>
+
+          </div>
+
+          <div>
+            <Button variant="contained" type='submit'>Sign Up</Button>
+          </div>
+        </form>
 
         <div>
           <p>Already Have an Account ? <Button onClick={() => handleClick('/login')} href="#text-buttons">Login</Button></p>
