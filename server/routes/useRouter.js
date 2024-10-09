@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const {
-    registerData
+    registerData,
+    findUserExist
 } = require('../DB/database');
 
 router.post('/router', async (req, res) => {
@@ -34,5 +35,30 @@ router.post('/router', async (req, res) => {
         console.error("error in router, addReviewData", error);
     }
 });
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    // console.log('req.body.email', req.body.email)
+    try {
+        const user = await findUserExist('users', { email });
+        console.log('user', user)
+        if (!user) {
+            console.log('User not registered')
+        } else {
+            return res.status(200).json({ message: 'user registered' })
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            console.log('password not match')
+        } else {
+            return res.status(200).json({ message: 'user password match' })
+        }
+
+    } catch (error) {
+        return res.status(500).json({ message: 'Server error' });
+
+    }
+})
 
 module.exports = router;

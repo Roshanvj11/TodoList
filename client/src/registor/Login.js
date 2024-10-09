@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 
 
@@ -14,8 +15,17 @@ export default function Login() {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log('data', data)
+    try {
+      await axios.post('http://localhost:5000/api/user/login',data)
+      console.log('Data posted in Login.js');
+      // if (response.status === 200){
+      //   navigate('/registor')
+      // }
+    } catch (error) {
+      console.error("Error posting register:", error);
+    }
   }
 
   return (
