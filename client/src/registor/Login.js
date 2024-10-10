@@ -18,11 +18,17 @@ export default function Login() {
   const onSubmit = async (data) => {
     console.log('data', data)
     try {
-      await axios.post('http://localhost:5000/api/user/login',data)
+      const response = await axios.post('http://localhost:5000/api/user/login', data,{
+        headers:{
+           'Content-Type': 'application/json'
+        }
+      })
       console.log('Data posted in Login.js');
-      // if (response.status === 200){
-      //   navigate('/registor')
-      // }
+      // const dataValue = await response.json();
+      if (response.status === 200) {
+        localStorage.setItem('token',response.data.token);
+        navigate('/today')
+      }
     } catch (error) {
       console.error("Error posting register:", error);
     }

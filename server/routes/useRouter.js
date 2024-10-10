@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const {
     registerData,
     findUserExist
@@ -39,21 +40,30 @@ router.post('/router', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     // console.log('req.body.email', req.body.email)
+    //Token creation
+    const token = jwt.sign(email, process.env.JWT_SECRET_KEY);
+    console.log('token', token);
+
     try {
         const user = await findUserExist('users', { email });
         console.log('user', user)
+
+
         if (!user) {
-            console.log('User not registered')
-        } else {
-            return res.status(200).json({ message: 'user registered' })
+            return res.status(500).json({ message: 'user not exist' });
         }
+
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            console.log('password not match')
-        } else {
-            return res.status(200).json({ message: 'user password match' })
+            return res.status(500).json({ message: 'Incorrect password' });
         }
+
+        //sending token and message to the frontend Login 
+        return res.status(200).json({
+            message: 'Login successful',
+            token: token
+        });
 
     } catch (error) {
         return res.status(500).json({ message: 'Server error' });
