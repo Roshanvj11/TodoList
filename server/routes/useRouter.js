@@ -8,7 +8,7 @@ const {
 } = require('../DB/database');
 
 router.post('/router', async (req, res) => {
-    const { email, password } = req.body;
+    const { username,email, password } = req.body;
     console.log('req.body.email', req.body.email);
     console.log('req.body.password', req.body.password);
 
@@ -23,6 +23,7 @@ router.post('/router', async (req, res) => {
     }
 
     const regData = {
+        username:username,
         email: email,
         password: hashedPassword,
         cAt: new Date()

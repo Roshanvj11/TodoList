@@ -14,7 +14,7 @@ export default function Registor() {
     navigate(navigationPage)
   }
 
-  const { register, handleSubmit, formState: { errors }, getValues,reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, getValues, reset } = useForm();
 
 
   const onSubmit = async (data) => {
@@ -42,6 +42,17 @@ export default function Registor() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
+
+            <div>
+              <TextField id="standard-basic" label="Username" variant="standard"
+                {...register('username', {
+                  required: 'Username is required',
+                  pattern: {
+                    message: 'Username is not valid'
+                  }
+                })} />
+              {errors.email && <p className='errorMsg' style={{ color: 'red' }}>{errors.email.message}</p>}
+            </div>
 
             <div>
               <TextField id="standard-basic" label="Email" variant="standard"
