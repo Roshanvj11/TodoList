@@ -5,7 +5,8 @@ import Registor from "./registor/Registor";
 import Layout from './pages/Layout';
 import Today from './pages/Today';
 import Pending from './pages/Pending';
-import Scheduled from "./pages/Scheduled"
+import Scheduled from "./pages/Scheduled";
+import './App.css';
 
 
 

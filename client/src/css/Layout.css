@@ -1,0 +1,11 @@
+.Layout{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.outlet{
+    border: 1px solid black;
+    padding: 10px;
+    width: 100%;
+}
