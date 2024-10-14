@@ -7,6 +7,7 @@ import axios from 'axios';
 
 
 
+
 export default function Login() {
   const navigate = useNavigate();
   const handleClick = (navigationPage) => {
@@ -18,15 +19,15 @@ export default function Login() {
   const onSubmit = async (data) => {
     console.log('data', data)
     try {
-      const response = await axios.post('http://localhost:5000/api/user/login', data,{
-        headers:{
-           'Content-Type': 'application/json'
+      const response = await axios.post('http://localhost:5000/api/user/login', data, {
+        headers: {
+          'Content-Type': 'application/json'
         }
       })
       console.log('Data posted in Login.js');
       // const dataValue = await response.json();
       if (response.status === 200) {
-        localStorage.setItem('token',response.data.token);
+        localStorage.setItem('token', response.data.token);
         navigate('/today')
       }
     } catch (error) {
@@ -47,15 +48,15 @@ export default function Login() {
           <div>
 
             <div>
-              <TextField id="standard-basic" label="Email" variant="standard"
-                {...register('email', {
-                  required: 'email is required',
-                  pattern: {
-                    value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                    message: 'email is not valid'
-                  }
+              <TextField id="standard-basic" label="Username" variant="standard"
+                {...register('username', {
+                  required: 'username is required',
+                  minLength: {
+                    value: 3,
+                    message: 'Username must be at least 3 characters long',
+                  },
                 })} />
-              {errors.email && <p className='errorMsg' style={{ color: 'red' }}>{errors.email.message}</p>}
+              {errors.username && <p className='errorMsg' style={{ color: 'red' }}>{errors.username.message}</p>}
             </div>
 
             <div>

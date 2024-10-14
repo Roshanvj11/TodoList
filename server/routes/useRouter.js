@@ -8,7 +8,7 @@ const {
 } = require('../DB/database');
 
 router.post('/router', async (req, res) => {
-    const { username,email, password } = req.body;
+    const { username, email, password } = req.body;
     console.log('req.body.email', req.body.email);
     console.log('req.body.password', req.body.password);
 
@@ -23,7 +23,7 @@ router.post('/router', async (req, res) => {
     }
 
     const regData = {
-        username:username,
+        username: username,
         email: email,
         password: hashedPassword,
         cAt: new Date()
@@ -39,16 +39,11 @@ router.post('/router', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
     // console.log('req.body.email', req.body.email)
-    //Token creation
-    const token = jwt.sign(email, process.env.JWT_SECRET_KEY);
-    console.log('token', token);
-
     try {
-        const user = await findUserExist('users', { email });
+        const user = await findUserExist('users', { username });
         console.log('user', user)
-
 
         if (!user) {
             return res.status(500).json({ message: 'user not exist' });
@@ -60,6 +55,10 @@ router.post('/login', async (req, res) => {
             return res.status(500).json({ message: 'Incorrect password' });
         }
 
+        //Token creation
+        const token = jwt.sign({ id: user._id, name: user.username, email: user.email }, process.env.JWT_SECRET_KEY,{expiresIn:'1h'});
+        console.log('token', token);
+
         //sending token and message to the frontend Login 
         return res.status(200).json({
             message: 'Login successful',
@@ -70,6 +69,29 @@ router.post('/login', async (req, res) => {
         return res.status(500).json({ message: 'Server error' });
 
     }
-})
+});
+
+const authenticateJWT = (req, res, next) => {
+    const token = req.header('Authorization')?.replace('Bearer', '').trim();
+    console.log('Authorization Header:', req.header('Authorization'));
+
+    if(!token){
+        return res.status(401).json({message:"unauthorized"});
+    }
+
+    try {
+        const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY);
+        // console.log('Decoded user:', decoded); // Log decoded user info
+        req.user = decoded;
+        next()
+    } catch (error) {
+        console.error('JWT verification error:', error); // Log the error for debugging
+        return res.status(403).json({ message: 'Invalid or expired token' });
+    }
+}
+
+router.get('/whoami', authenticateJWT, (req, res) => {
+    res.json(req.user); // The user info from the token
+  });
 
 module.exports = router;
