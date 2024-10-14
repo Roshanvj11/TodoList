@@ -9,10 +9,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import { useUserContext } from '../context/UserContext';
+
 
 export default function Head() {
   //Todo button with Dialog 
   const [open, setOpen] = useState(false);
+
+  //destructuring from userContext
+  const {user} = useUserContext();
+  console.log('user head', user)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,7 +43,7 @@ export default function Head() {
 
       <div className='HeadName'>
         <p>logo</p>
-        <h1>name</h1>
+      <p>{user ? `${user.name}` : 'Loading user data...'}</p>
       </div>
 
       <div className='HeadBtn'>
