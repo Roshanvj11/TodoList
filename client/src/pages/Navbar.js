@@ -9,8 +9,8 @@ export default function Layout() {
 
             <div className='navbarLink'>
                 <Link className='headLink' to='/today'>Today</Link>
-                <Link className='headLink' to='/pending'>Pending</Link>
                 <Link className='headLink' to='/scheduled'>Scheduled</Link>
+                <Link className='headLink' to='/pending'>Pending</Link>
             </div>
 
         </div>

@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
         }
 
         //Token creation
-        const token = jwt.sign({ id: user._id, name: user.username, email: user.email }, process.env.JWT_SECRET_KEY,{expiresIn:'1h'});
+        const token = jwt.sign({ id: user._id, name: user.username, email: user.email }, process.env.JWT_SECRET_KEY,{expiresIn:'4h'});
         console.log('token', token);
 
         //sending token and message to the frontend Login 
@@ -73,7 +73,7 @@ router.post('/login', async (req, res) => {
 
 const authenticateJWT = (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer', '').trim();
-    console.log('Authorization Header:', req.header('Authorization'));
+    // console.log('Authorization Header:', req.header('Authorization'));
 
     if(!token){
         return res.status(401).json({message:"unauthorized"});
