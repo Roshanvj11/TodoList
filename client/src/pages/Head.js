@@ -10,7 +10,7 @@ export default function Head() {
   const navigate = useNavigate();
   //destructuring from userContext
   const { user } = useUserContext();
-  console.log('user head', user)
+  // console.log('user head', user)
 
   const handleClick = () => {
     navigate('/TodoList')

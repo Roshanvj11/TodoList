@@ -10,7 +10,7 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null); // To store user data
     const [loading, setLoading] = useState(true); // To handle loading state
 
-    console.log('user', user)
+    // console.log('user', user)
 
     const fetchUser = async () => {
         setLoading(true); // Set loading to true at the start of fetching

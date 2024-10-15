@@ -17,21 +17,21 @@ async function connectToDatabase() {
 }
 connectToDatabase()
 
-async function registerData(collectionName,data) {
+async function PostData(collectionName, data) {
     try {
         const database = client.db(process.env.MONGODB);
         const collection = database.collection(collectionName);
         const result = await collection.insertOne(data);
-        console.log("register data inserted successfully",result)
+        console.log("posted data inserted successfully", result)
         return result
     } catch (error) {
-        console.error('Error adding registor user in MongoDB:', error);
-        
+        console.error('Error Posting user/tododata in MongoDB:', error);
+
     }
 
 }
 
-async function findUserExist(collectionName,data){
+async function findUserExist(collectionName, data) {
     try {
         const database = client.db(process.env.MONGODB);
         const collection = database.collection(collectionName);
@@ -40,12 +40,24 @@ async function findUserExist(collectionName,data){
         return result
     } catch (error) {
         console.error('Error finding user in MongoDB:', error);
-        return null; 
+        return null;
     }
 }
+async function getData(collectionName, id) {
+    try {
+        const database = client.db(process.env.MONGODB);
+        const collection = database.collection(collectionName);
+        const result = await collection.find({ userId: id }).toArray;
+        return result;
+    } catch (error) {
+        console.error('Error getting today todo data in MongoDB:', error);
+        return null;
+    }
 
+}
 module.exports = {
     connectToDatabase,
-    registerData,
-    findUserExist
+    PostData,
+    findUserExist,
+    getData,
 }

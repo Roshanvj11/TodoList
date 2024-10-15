@@ -3,9 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {
-    registerData,
-    findUserExist
+    PostData,
+    findUserExist,
+    getData
 } = require('../DB/database');
+const { ObjectId } = require('mongodb');
 
 router.post('/router', async (req, res) => {
     const { username, email, password } = req.body;
@@ -31,7 +33,7 @@ router.post('/router', async (req, res) => {
     console.log('regData', regData)
     res.json({ message: "Data received successfully" });
     try {
-        const result = await registerData('users', regData);
+        const result = await PostData('users', regData);
         console.log('result', result);
     } catch (error) {
         console.error("error in router, addReviewData", error);
@@ -56,7 +58,7 @@ router.post('/login', async (req, res) => {
         }
 
         //Token creation
-        const token = jwt.sign({ id: user._id, name: user.username, email: user.email }, process.env.JWT_SECRET_KEY,{expiresIn:'4h'});
+        const token = jwt.sign({ id: user._id, name: user.username, email: user.email }, process.env.JWT_SECRET_KEY, { expiresIn: '4h' });
         console.log('token', token);
 
         //sending token and message to the frontend Login 
@@ -75,12 +77,12 @@ const authenticateJWT = (req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer', '').trim();
     // console.log('Authorization Header:', req.header('Authorization'));
 
-    if(!token){
-        return res.status(401).json({message:"unauthorized"});
+    if (!token) {
+        return res.status(401).json({ message: "unauthorized" });
     }
 
     try {
-        const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
         // console.log('Decoded user:', decoded); // Log decoded user info
         req.user = decoded;
         next()
@@ -92,6 +94,50 @@ const authenticateJWT = (req, res, next) => {
 
 router.get('/whoami', authenticateJWT, (req, res) => {
     res.json(req.user); // The user info from the token
-  });
+});
+
+router.post('/TodayData', async (req, res) => {
+    const { userId, userName, userEmail, Task, TaskDate, Time } = req.body;
+    console.log('userId', req.body.userId)
+
+    const TodayData = {
+        userId: new ObjectId(userId),
+        userName: userName,
+        userEmail: userEmail,
+        Task: Task,
+        Date: TaskDate,
+        Time: Time,
+        cAt: new Date()
+    }
+    console.log('data', TodayData)
+
+
+    try {
+        await PostData('TodoData', TodayData);
+        return res.status(200).json({
+            message: 'TodayData post successful',
+            // result: result,
+        })
+    } catch (error) {
+        console.error("error in router, addReviewData", error);
+    }
+
+})
+
+
+router.get('/getTodayData',async(req,res)=>{
+    const {id} = req.params;
+    console.log('req.params.id', req.params.id)
+    try {
+       const result= await getData('TodoData',id);
+        console.log('result', result)
+        res.status(200).json(result);
+
+    } catch (error) {
+        console.error("error in router, getting today data", error);
+        res.status(500).json({ message: 'Error fetching data' });
+
+    }
+})
 
 module.exports = router;
