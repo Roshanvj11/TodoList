@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const connectionString = process.env.MONGO_URI;
@@ -47,7 +47,7 @@ async function getData(collectionName, id) {
     try {
         const database = client.db(process.env.MONGODB);
         const collection = database.collection(collectionName);
-        const result = await collection.find({ userId: id }).toArray;
+        const result = await collection.find({ userId: new ObjectId(id) }).toArray();
         return result;
     } catch (error) {
         console.error('Error getting today todo data in MongoDB:', error);

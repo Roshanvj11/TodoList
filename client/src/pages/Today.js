@@ -77,7 +77,7 @@ export default function Today() {
       }
     }
     fetchTodayData();
-  },[user, id])
+  },[user, id,handleSubmit])
 
   return (
     <div className='today'>

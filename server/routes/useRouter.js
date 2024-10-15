@@ -107,6 +107,7 @@ router.post('/TodayData', async (req, res) => {
         Task: Task,
         Date: TaskDate,
         Time: Time,
+        status:'pending',
         cAt: new Date()
     }
     console.log('data', TodayData)
@@ -125,7 +126,7 @@ router.post('/TodayData', async (req, res) => {
 })
 
 
-router.get('/getTodayData',async(req,res)=>{
+router.get('/getTodayData/:id',async(req,res)=>{
     const {id} = req.params;
     console.log('req.params.id', req.params.id)
     try {

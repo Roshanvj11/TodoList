@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/scheduled.css';
 
 import TextField from '@mui/material/TextField';
@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 
 
 import { useUserContext } from '../context/UserContext';
+import axios from 'axios';
 
 export default function Scheduled() {
 
@@ -26,7 +27,13 @@ export default function Scheduled() {
   };
   //destructuring from userContext
   const { user } = useUserContext();
-  console.log('user head', user)
+
+  // Safely destructuring user
+  const id = user?.id;
+  const name = user?.name;
+  const email = user?.email;
+
+  console.log('id', id)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,15 +43,49 @@ export default function Scheduled() {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const formJson = Object.fromEntries(formData.entries());
-    const Task = formJson.Task;
-    console.log(formJson)
-    console.log(Task);
-    handleClose();
+    // const Task = formJson.Task;
+    const data = {
+      userId: id,
+      userName: name,
+      userEmail: email,
+      Task: formJson.Task,
+      TaskDate: formJson.date,
+      Time: formJson.time,
+    };
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/user/TodayData', data);
+      if (response.status === 200) {
+        console.log('Response:', response);
+        setOpen(false); // Check if the dialog closes only on successful response
+      } else {
+        console.log('Failed to submit data', response);
+      }// Try calling setOpen directly here to close the dialog
+    } catch (error) {
+      console.error("Error in posting todayData", error);
+    }
   }
+
+  useEffect (()=>{
+    if (!user) {
+      console.log("User is not available yet");
+      return; // Exit early if user is null or undefined
+    }
+    
+    const fetchTodayData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/user/getTodayData/${id}`)
+        console.log('response.data', response.data)
+      } catch (error) {
+        console.error("Error getting data:", error);
+      }
+    }
+    fetchTodayData();
+  },[user, id,handleSubmit])
 
   return (
     <div className='scheduled'>
