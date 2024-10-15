@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
         setLoading(true); // Set loading to true at the start of fetching
         try {
             const token = localStorage.getItem('token');
-            console.log('token', token)
+            // console.log('token', token)
             if (token) {
                 const response = await axios.get('http://localhost:5000/api/user/whoami', {
                     headers: {

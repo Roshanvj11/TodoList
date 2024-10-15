@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import  { useState, useEffect } from 'react';
 import '../css/scheduled.css';
 
 import TextField from '@mui/material/TextField';
@@ -14,6 +15,8 @@ import { useUserContext } from '../context/UserContext';
 import axios from 'axios';
 
 export default function Scheduled() {
+
+  const [sheduledDate, setSheduledDate] = useState([]);
 
   //Todo button with Dialog 
   const [open, setOpen] = useState(false);
@@ -70,22 +73,33 @@ export default function Scheduled() {
     }
   }
 
-  useEffect (()=>{
+  console.log('sheduledDate', sheduledDate);
+  // Get today's date formatted to YYYY-MM-DD
+  const todayDate = new Date().toISOString().split('T')[0];
+  console.log('todayDate', todayDate);
+  
+  const filteredScheduledDate = sheduledDate.filter((value) => {
+    return value.Date > todayDate
+  })
+  console.log('filteredScheduledDate', filteredScheduledDate)
+
+  useEffect(() => {
     if (!user) {
       console.log("User is not available yet");
       return; // Exit early if user is null or undefined
     }
-    
+
     const fetchTodayData = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/user/getTodayData/${id}`)
         console.log('response.data', response.data)
+        setSheduledDate(response.data);
       } catch (error) {
         console.error("Error getting data:", error);
       }
     }
     fetchTodayData();
-  },[user, id,handleSubmit])
+  }, [user, id])
 
   return (
     <div className='scheduled'>

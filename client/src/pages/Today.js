@@ -13,6 +13,7 @@ import { useUserContext } from '../context/UserContext';
 import axios from 'axios';
 
 export default function Today() {
+  const [todayData,setTodayData] = useState([]);
   const [open, setOpen] = useState(false);
   const { user } = useUserContext();
 
@@ -62,6 +63,16 @@ export default function Today() {
   // Get today's date formatted to YYYY-MM-DD
   const formattedDate = new Date().toISOString().split('T')[0];
 
+  console.log('todayData', todayData)
+  // console.log('new Date()', new Date().toISOString().split('T')[0])
+
+  const filteredTodayData = todayData.filter((value,index,array)=>{
+    return value.Date === formattedDate
+
+  })
+
+  console.log('filteredTodayData', filteredTodayData)
+
   useEffect (()=>{
     if (!user) {
       console.log("User is not available yet");
@@ -71,13 +82,14 @@ export default function Today() {
     const fetchTodayData = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/user/getTodayData/${id}`)
-        console.log('response.data', response.data)
+        // console.log('response.data', response.data)
+        setTodayData(response.data)
       } catch (error) {
         console.error("Error getting data:", error);
       }
     }
     fetchTodayData();
-  },[user, id,handleSubmit])
+  },[user, id])
 
   return (
     <div className='today'>
