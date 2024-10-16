@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 const {
     PostData,
     findUserExist,
-    getData
+    getData,
+    update,
+    Delete
 } = require('../DB/database');
 const { ObjectId } = require('mongodb');
 
@@ -107,7 +109,7 @@ router.post('/TodayData', async (req, res) => {
         Task: Task,
         Date: TaskDate,
         Time: Time,
-        status:'pending',
+        status: 'pending',
         cAt: new Date()
     }
     console.log('data', TodayData)
@@ -126,11 +128,11 @@ router.post('/TodayData', async (req, res) => {
 })
 
 
-router.get('/getTodayData/:id',async(req,res)=>{
-    const {id} = req.params;
+router.get('/getTodayData/:id', async (req, res) => {
+    const { id } = req.params;
     console.log('req.params.id', req.params.id)
     try {
-       const result= await getData('TodoData',id);
+        const result = await getData('TodoData', id);
         console.log('result', result)
         res.status(200).json(result);
 
@@ -138,6 +140,38 @@ router.get('/getTodayData/:id',async(req,res)=>{
         console.error("error in router, getting today data", error);
         res.status(500).json({ message: 'Error fetching data' });
 
+    }
+})
+
+//update status 
+
+router.put('/updateStatus/:id', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    console.log('req.params.id', req.params.id);
+    console.log('req.body.status', req.body.status);
+    try {
+        const result = await update('TodoData', id, status);
+        console.log('result', result)
+        res.status(200).json(result);
+    } catch (error) {
+        console.error("error in router, updating today data", error);
+        res.status(500).json({ message: 'Error updating data' });
+    }
+})
+
+//delete task
+
+router.delete('/deleteTask/:id', async (req, res) => {
+    const { id } = req.params;
+    console.log('req.params.id', req.params.id);
+    try {
+        const result = await Delete('TodoData', id);
+        console.log('result', result)
+        res.status(200).json(result);
+    } catch (error) {
+        console.error("error in router, deleteTask today data", error);
+        res.status(500).json({ message: 'Error deleteTask data' });
     }
 })
 

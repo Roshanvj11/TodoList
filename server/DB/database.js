@@ -55,9 +55,38 @@ async function getData(collectionName, id) {
     }
 
 }
+
+//update
+async function update(collectionName, id, newStatus) {
+    try {
+        const database = client.db(process.env.MONGODB);
+        const collection = database.collection(collectionName);
+        const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: { status: newStatus } })
+        return result;
+    } catch (error) {
+        console.error('Error in updating today todo data in MongoDB:', error);
+        return null;
+    }
+}
+
+//delete
+async function Delete(collectionName,id){
+    try {
+        const database = client.db(process.env.MONGODB);
+        const collection = database.collection(collectionName);
+        const result = await collection.deleteOne({ _id: new ObjectId(id) });
+        return result;
+    } catch (error) {
+        console.error('Error in deleting task today todo data in MongoDB:', error);
+        return null;
+    }
+}
+
 module.exports = {
     connectToDatabase,
     PostData,
     findUserExist,
     getData,
+    update,
+    Delete,
 }

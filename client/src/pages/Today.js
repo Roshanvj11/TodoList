@@ -14,14 +14,16 @@ import axios from 'axios';
 
 import { pink } from '@mui/material/colors';
 import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 
 export default function Today() {
   const [todayData, setTodayData] = useState([]);
   const [open, setOpen] = useState(false);
   const { user } = useUserContext();
-  const [status, setStatus] = useState();
+  // const [status, setStatus] = useState();
 
   // Safely destructuring user
   const id = user?.id;
@@ -97,13 +99,12 @@ export default function Today() {
     fetchTodayData();
   }, [user, id]);
 
-  const handleStatusChange = async (event, taskId, taskStatus) => {
+  const handleStatusChange = async (event, taskId) => {
     const newStatus = event.target.checked ? 'finished' : 'pending';
     console.log('status:', newStatus);
-    setStatus(newStatus);
+    // setStatus(newStatus);
 
     console.log('taskId', taskId)
-    console.log('taskStatus', taskStatus)
 
     setTodayData((prevTasks) =>
       prevTasks.map((task) =>
@@ -112,8 +113,23 @@ export default function Today() {
     );
 
     try {
-      const response = await axios.put(`http://localhost:5000/api/user/updateStatus/${taskId}`,{status:newStatus});
+      const response = await axios.put(`http://localhost:5000/api/user/updateStatus/${taskId}`, { status: newStatus });
       console.log("Status updated:", response.data);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  }
+
+  //delete a task
+  const handleDelete = async (id) => {
+    console.log('deletingid', id)
+    const removeTask = filteredTodayData.filter((todo)=>{
+      return todo._id !== id ;
+    })
+    setTodayData(removeTask);
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/user/deleteTask/${id}`);
+      console.log('response.data', response.data)
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -196,15 +212,9 @@ export default function Today() {
           <div className='todayMappedList' key={index}>
 
             <div className='list one'>
-              <p>.</p>
-              <p>{value.Task}</p>
-            </div>
-
-            <div className='list two'>
-              <p>{value.Time}</p>
               <Checkbox
                 checked={value.status === 'finished'}
-                onChange={(event) => handleStatusChange(event, value._id,value.status)}
+                onChange={(event) => handleStatusChange(event, value._id)}
                 sx={{
                   color: pink[800],
                   '&.Mui-checked': {
@@ -212,6 +222,15 @@ export default function Today() {
                   },
                 }}
               />
+              <p>{value.Task}</p>
+            </div>
+
+            <div className='list two'>
+              <p>{value.Time}</p>
+
+              <IconButton onClick={() => handleDelete(value._id)} sx={{ color: 'red' }} aria-label="delete" size="large">
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
             </div>
 
           </div>
