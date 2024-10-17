@@ -141,7 +141,7 @@ export default function Today() {
       <div className='todayHead'>
 
         <div>
-          <h2>Today main focus</h2>
+          <h2>"Today main focus"</h2>
         </div>
 
         <div className='HeadBtn'>

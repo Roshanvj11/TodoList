@@ -13,7 +13,10 @@ export default function Head() {
   // console.log('user head', user)
 
   const handleClick = () => {
+    localStorage.removeItem('token');
     navigate('/TodoList')
+    window.location.reload();  // Forces a full page reload
+
   }
 
   return (

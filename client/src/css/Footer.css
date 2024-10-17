@@ -1,0 +1,33 @@
+.footer {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1B3C73;
+    gap: 4px;
+    height: 10vh
+}
+.footer p{
+    color: whitesmoke;
+    text-align:center ;
+}
+
+#phno{
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+    gap: 10px;
+}
+
+@media (max-width: 480px) {
+    .footer {
+        width: 100%;
+    }
+    .footer p{
+        font-size: 12px;
+    }
+}

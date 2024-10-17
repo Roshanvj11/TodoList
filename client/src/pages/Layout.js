@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import { Outlet } from 'react-router-dom';
 import '../css/Layout.css';
 import Head from './Head';
+import Footer from './Footer';
 
 export default function Layout() {
     return (
@@ -14,6 +15,7 @@ export default function Layout() {
                     <Outlet /> {/* This will render the routed components like Home or About */}
                 </main>
             </div>
+            <Footer/>
         </div>
     )
 }

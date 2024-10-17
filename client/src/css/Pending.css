@@ -1,15 +1,16 @@
-.scheduled {
+.pending {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.scheduledHead {
+.pendingMappedList {
+    border: 1px solid black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 10px;
     align-items: center;
-    border: 1px solid black;
 }
 
 .list {
