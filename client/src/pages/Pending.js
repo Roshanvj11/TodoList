@@ -41,7 +41,8 @@ export default function Pending() {
   console.log('todayDate', todayDate);
 
   const filteredPendingData = pendingData.filter((value) => {
-    return value.status === 'pending' && value.Date >= todayDate;
+    return value.status === 'pending';
+    // && value.Date >= todayDate;
   });
 
   console.log('filteredPendingData:', filteredPendingData)

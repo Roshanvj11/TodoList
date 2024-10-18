@@ -117,6 +117,10 @@ router.post('/TodayData', async (req, res) => {
 
     try {
         await PostData('TodoData', TodayData);
+
+        const io = req.app.get('socketio');
+        io.emit('todayData', TodayData);
+
         return res.status(200).json({
             message: 'TodayData post successful',
             // result: result,

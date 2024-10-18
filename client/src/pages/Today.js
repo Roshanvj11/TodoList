@@ -17,13 +17,15 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
+import { io } from 'socket.io-client'
 
 export default function Today() {
   const [todayData, setTodayData] = useState([]);
   const [open, setOpen] = useState(false);
   const { user } = useUserContext();
   // const [status, setStatus] = useState();
+
+  const socket = io('http://localhost:5000')
 
   // Safely destructuring user
   const id = user?.id;
@@ -66,6 +68,7 @@ export default function Today() {
     } catch (error) {
       console.error("Error in posting todayData", error);
     }
+
   };
 
   // Get today's date formatted to YYYY-MM-DD
@@ -97,6 +100,17 @@ export default function Today() {
       }
     }
     fetchTodayData();
+
+    //socket.IO setup to listen for real-time updates
+    socket.on('todayData', (newData) => {
+      console.log('new data received', newData);
+      setTodayData((prevData) => [...prevData, newData])
+    })
+
+    return () => {
+      socket.off('newTodayData');
+    };
+    // eslint-disable-next-line
   }, [user, id]);
 
   const handleStatusChange = async (event, taskId) => {
@@ -123,8 +137,8 @@ export default function Today() {
   //delete a task
   const handleDelete = async (id) => {
     console.log('deletingid', id)
-    const removeTask = filteredTodayData.filter((todo)=>{
-      return todo._id !== id ;
+    const removeTask = filteredTodayData.filter((todo) => {
+      return todo._id !== id;
     })
     setTodayData(removeTask);
     try {
