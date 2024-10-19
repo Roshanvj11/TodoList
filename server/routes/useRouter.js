@@ -157,6 +157,12 @@ router.put('/updateStatus/:id', async (req, res) => {
     try {
         const result = await update('TodoData', id, status);
         console.log('result', result)
+
+        if (result) {
+            const io = req.app.get('socketio'); // Access the Socket.IO instance
+            io.emit('statusUpdated', { taskId: id, status: status });
+        }
+
         res.status(200).json(result);
     } catch (error) {
         console.error("error in router, updating today data", error);

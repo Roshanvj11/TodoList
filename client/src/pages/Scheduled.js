@@ -17,6 +17,8 @@ import axios from 'axios';
 // import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { io } from 'socket.io-client';
+
 
 
 export default function Scheduled() {
@@ -35,6 +37,8 @@ export default function Scheduled() {
   };
   //destructuring from userContext
   const { user } = useUserContext();
+  const socket = io('http://localhost:5000')
+
 
   // Safely destructuring user
   const id = user?.id;
@@ -104,6 +108,16 @@ export default function Scheduled() {
       }
     }
     fetchTodayData();
+    //socket.IO setup to listen for real-time updates
+    socket.on('todayData', (newData) => {
+      console.log('new data received', newData);
+      setSheduledDate((prevData) => [...prevData, newData])
+    })
+
+    return () => {
+      socket.off('newTodayData');
+    };
+    // eslint-disable-next-line
   }, [user, id])
 
   //delete a task

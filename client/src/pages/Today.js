@@ -129,6 +129,10 @@ export default function Today() {
     try {
       const response = await axios.put(`http://localhost:5000/api/user/updateStatus/${taskId}`, { status: newStatus });
       console.log("Status updated:", response.data);
+
+      // Emit a statusUpdated event through Socket.IO
+      socket.emit('statusUpdated', { taskId, status: newStatus });
+
     } catch (error) {
       console.error("Error updating status:", error);
     }

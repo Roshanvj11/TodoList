@@ -3,6 +3,9 @@ import { useUserContext } from '../context/UserContext';
 import '../css/Pending.css'
 import axios from 'axios';
 
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function Pending() {
   const [pendingData, setPendingData] = useState([]);
@@ -45,7 +48,23 @@ export default function Pending() {
     // && value.Date >= todayDate;
   });
 
-  console.log('filteredPendingData:', filteredPendingData)
+  console.log('filteredPendingData:', filteredPendingData);
+
+    //delete a task
+    const handleDelete = async (id) => {
+      console.log('deletingid', id)
+      const removeTask = filteredPendingData.filter((todo) => {
+        return todo._id !== id;
+      })
+      setPendingData(removeTask);
+      try {
+        const response = await axios.delete(`http://localhost:5000/api/user/deleteTask/${id}`);
+        console.log('response.data', response.data)
+      } catch (error) {
+        console.error("Error updating status:", error);
+      }
+    }
+  
 
   return (
     <div className='pending'>
@@ -75,6 +94,9 @@ export default function Pending() {
               </p>
               <p>{value.Time}</p>
               <p>{value.status}</p>
+              <IconButton onClick={() => handleDelete(value._id)} sx={{ color: 'red' }} aria-label="delete" size="large">
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
             </div>
 
           </div>
