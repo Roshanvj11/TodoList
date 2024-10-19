@@ -70,7 +70,7 @@ async function update(collectionName, id, newStatus) {
 }
 
 //delete
-async function Delete(collectionName,id){
+async function Delete(collectionName, id) {
     try {
         const database = client.db(process.env.MONGODB);
         const collection = database.collection(collectionName);
@@ -82,6 +82,53 @@ async function Delete(collectionName,id){
     }
 }
 
+//edit get 
+async function getEditData(collectionName, id) {
+    try {
+        // Validate the ID format
+        if (!ObjectId.isValid(id)) {
+            throw new Error('Invalid ObjectId');
+        }
+
+        const database = client.db(process.env.MONGODB);
+        const collection = database.collection(collectionName);
+        const result = await collection.find({ _id: new ObjectId(id) }).toArray();
+        return result;
+    } catch (error) {
+        console.error('Error in getEditData MongoDB:', error);
+        return null;
+    }
+}
+
+//update edit data today
+async function updateGetData(collectionName, id, newData, time, date) {
+    try {
+        const database = client.db(process.env.MONGODB);
+        const collection = database.collection(collectionName);
+        const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: { Task: newData, Time: time } });
+        return result;
+
+    } catch (error) {
+        console.error('Error in updateEditData  today MongoDB:', error);
+        return null;
+    }
+}
+
+//update edit data scheduled
+async function updateGetDataScheduled(collectionName, id, newData, time, date) {
+    try {
+        const database = client.db(process.env.MONGODB);
+        const collection = database.collection(collectionName);
+        const result = await collection.updateOne({ _id: new ObjectId(id) }, { $set: { Task: newData, Time: time, Date: date } });
+        return result;
+
+    } catch (error) {
+        console.error('Error in updateEditData  today MongoDB:', error);
+        return null;
+    }
+}
+
+
 module.exports = {
     connectToDatabase,
     PostData,
@@ -89,4 +136,7 @@ module.exports = {
     getData,
     update,
     Delete,
+    getEditData,
+    updateGetData,
+    updateGetDataScheduled
 }

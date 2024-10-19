@@ -7,7 +7,10 @@ const {
     findUserExist,
     getData,
     update,
-    Delete
+    Delete,
+    getEditData,
+    updateGetData,
+    updateGetDataScheduled
 } = require('../DB/database');
 const { ObjectId } = require('mongodb');
 
@@ -184,5 +187,74 @@ router.delete('/deleteTask/:id', async (req, res) => {
         res.status(500).json({ message: 'Error deleteTask data' });
     }
 })
+
+//edit get 
+router.get('/getData/:id', async (req, res) => {
+    const { id } = req.params;
+    console.log('req.params.id', req.params.id)
+    try {
+        const result = await getEditData('TodoData', id);
+        console.log('result', result)
+        res.status(200).json(result);
+
+    } catch (error) {
+        console.error("error in router, getting today data", error);
+        res.status(500).json({ message: 'Error fetching data' });
+
+    }
+})
+
+//edit update today data
+router.put('/updateGetData/:id', async (req, res) => {
+    const { id } = req.params;
+    const { newData,time } = req.body;
+    console.log('req.params.id', req.params.id);
+    console.log('req.params.inputData', req.body.newData);
+    console.log('req.params.time', req.body.time)
+
+
+    try {
+        const result = await updateGetData('TodoData', id, newData,time);
+        console.log('result', result);
+        if (result) {
+            const io = req.app.get('socketio'); // Access the Socket.IO instance
+            io.emit('statusUpdated', { id: id, newData: newData });
+        }
+
+        res.status(200).json(result);
+
+    } catch (error) {
+        console.error("error in router, updateGetData today  data", error);
+        res.status(500).json({ message: 'Error fetching data' });
+    }
+
+})
+
+//edit update scheduled data
+router.put('/updateGetDataScheduled/:id', async (req, res) => {
+    const { id } = req.params;
+    const { newData,time,date} = req.body;
+    console.log('req.params.id', req.params.id);
+    console.log('req.params.inputData', req.body.newData);
+    console.log('req.params.time', req.body.time)
+    console.log('req.params.date', req.body.date)
+
+    try {
+        const result = await updateGetDataScheduled('TodoData', id, newData,time,date);
+        console.log('result', result);
+        if (result) {
+            const io = req.app.get('socketio'); // Access the Socket.IO instance
+            io.emit('statusUpdated', { id: id, newData: newData ,date:date});
+        }
+
+        res.status(200).json(result);
+
+    } catch (error) {
+        console.error("error in router, updateGetData today  data", error);
+        res.status(500).json({ message: 'Error fetching data' });
+    }
+
+})
+
 
 module.exports = router;

@@ -18,6 +18,7 @@ import axios from 'axios';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { io } from 'socket.io-client';
+import UpdateScheduled from './UpdateScheduled';
 
 
 
@@ -29,12 +30,21 @@ export default function Scheduled() {
   const [open, setOpen] = useState(false);
   const [formattedDate, setFormattedDate] = useState('');
 
-  // Function to get tomorrow's date in YYYY-MM-DD format
-  const getTomorrowDate = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-  };
+// Function to get tomorrow's date in YYYY-MM-DD format
+const getTomorrowDate = () => {
+  const now = new Date();
+
+    // Calculate tomorrow's date
+    const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30 in milliseconds
+    const tomorrow = new Date(now.getTime() + istOffset); // Adjust to IST
+    tomorrow.setDate(tomorrow.getDate() + 1); // Add one day
+
+    // Format as YYYY-MM-DD
+    return tomorrow.toISOString().split('T')[0]; 
+};
+
+console.log('getTomorrowDate()', getTomorrowDate())
+
   //destructuring from userContext
   const { user } = useUserContext();
   const socket = io('http://localhost:5000')
@@ -84,7 +94,8 @@ export default function Scheduled() {
 
   console.log('sheduledDate', sheduledDate);
   // Get today's date formatted to YYYY-MM-DD
-  const todayDate = new Date().toISOString().split('T')[0];
+  const today = new Date();
+  const todayDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');  console.log('formattedDate', formattedDate)
   console.log('todayDate', todayDate);
 
   const filteredScheduledDate = sheduledDate.filter((value) => {
@@ -245,6 +256,7 @@ export default function Scheduled() {
               })()}
               </p>
               <p>{value.Time}</p>
+              <UpdateScheduled id={value._id} />
 
               <IconButton onClick={() => handleDelete(value._id)} sx={{ color: 'red' }} aria-label="delete" size="large">
                 <DeleteIcon fontSize="inherit" />

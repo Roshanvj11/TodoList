@@ -17,7 +17,8 @@ import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { io } from 'socket.io-client'
+import { io } from 'socket.io-client';
+import UpdateTodo from './UpdateTodo';
 
 export default function Today() {
   const [todayData, setTodayData] = useState([]);
@@ -72,8 +73,8 @@ export default function Today() {
   };
 
   // Get today's date formatted to YYYY-MM-DD
-  const formattedDate = new Date().toISOString().split('T')[0];
-
+  const today = new Date();
+  const formattedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');  console.log('formattedDate', formattedDate)
   console.log('todayData', todayData)
   // console.log('new Date()', new Date().toISOString().split('T')[0])
 
@@ -81,6 +82,7 @@ export default function Today() {
     return value.Date === formattedDate
 
   })
+  console.log('new Date()', new Date())
 
   console.log('filteredTodayData', filteredTodayData)
 
@@ -245,6 +247,8 @@ export default function Today() {
 
             <div className='list two'>
               <p>{value.Time}</p>
+
+              <UpdateTodo id={value._id} setDateValue = {false}  />
 
               <IconButton onClick={() => handleDelete(value._id)} sx={{ color: 'red' }} aria-label="delete" size="large">
                 <DeleteIcon fontSize="inherit" />
