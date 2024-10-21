@@ -10,12 +10,15 @@ export default function Layout() {
         <div >
             <Head />
             <div className='Layout'>
-                <Navbar />
-                <main className='outlet'>
-                    <Outlet /> {/* This will render the routed components like Home or About */}
-                </main>
+                <div className='innerLayout'>
+                    <Navbar />
+                    <main className='outlet'>
+                        <Outlet/> {/* This will render the routed components like Home or About */}
+                    </main>
+                </div>
+
             </div>
-            <Footer/>
+            <Footer />
         </div>
     )
 }

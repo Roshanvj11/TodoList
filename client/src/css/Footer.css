@@ -4,16 +4,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #1B3C73;
-    gap: 4px;
+    /* background-color: #6256CA; */
+    background-color: rgb(49, 40, 40);
+    /* background-color: #fd835e; */
+    gap: 10px;
     height: 10vh
 }
-.footer p{
+
+.footer p {
     color: whitesmoke;
-    text-align:center ;
+    text-align: center;
+    font-weight: 600;
 }
 
-#phno{
+#phno {
     text-decoration: none;
     display: flex;
     flex-direction: row;
@@ -27,7 +31,8 @@
     .footer {
         width: 100%;
     }
-    .footer p{
+
+    .footer p {
         font-size: 12px;
     }
 }

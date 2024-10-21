@@ -16,6 +16,7 @@ import { pink } from '@mui/material/colors';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 import { io } from 'socket.io-client';
 import UpdateTodo from './UpdateTodo';
@@ -74,7 +75,7 @@ export default function Today() {
 
   // Get today's date formatted to YYYY-MM-DD
   const today = new Date();
-  const formattedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');  console.log('formattedDate', formattedDate)
+  const formattedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0'); console.log('formattedDate', formattedDate)
   console.log('todayData', todayData)
   // console.log('new Date()', new Date().toISOString().split('T')[0])
 
@@ -161,12 +162,12 @@ export default function Today() {
       <div className='todayHead'>
 
         <div>
-          <h2>"Today main focus"</h2>
+          <h1>"Today Main Focus"</h1>
         </div>
 
-        <div className='HeadBtn'>
-          <Button aria-hidden="true" variant="outlined" onClick={handleClickOpen}>
-            Add Todo
+        <div className='HeadBtnToday'>
+          <Button aria-hidden="true" variant="contained" onClick={handleClickOpen}>
+            <AddIcon />  Add
           </Button>
           <Dialog
             open={open}
@@ -248,7 +249,7 @@ export default function Today() {
             <div className='list two'>
               <p>{value.Time}</p>
 
-              <UpdateTodo id={value._id} setDateValue = {false}  />
+              <UpdateTodo id={value._id} setDateValue={false} />
 
               <IconButton onClick={() => handleDelete(value._id)} sx={{ color: 'red' }} aria-label="delete" size="large">
                 <DeleteIcon fontSize="inherit" />
@@ -257,7 +258,7 @@ export default function Today() {
 
           </div>
         ))
-      ) : (<div><p>Today no task left</p></div>)}
+      ) : (<div className='noTask'><p className='noPara'>Today no task left</p></div>)}
 
     </div>
   );

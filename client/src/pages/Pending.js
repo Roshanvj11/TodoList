@@ -70,7 +70,7 @@ export default function Pending() {
     <div className='pending'>
 
       <div>
-        <h2>"Your Pending Tasks"</h2>
+        <h1>"Your Pending Tasks"</h1>
       </div>
 
       {filteredPendingData.length > 0 ? (
@@ -101,7 +101,7 @@ export default function Pending() {
 
           </div>
         ))
-      ) : (<div><p>Today no task left</p></div>)}
+      ) : (<div className='noTask'><p className='noPara'>No pending Tasks</p></div>)}
 
 
     </div>

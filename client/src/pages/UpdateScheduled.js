@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
-import EditCalendarOutlinedIcon from '@mui/icons-material/EditCalendarOutlined';
+import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 
@@ -88,8 +88,16 @@ export default function UpdateScheduled({ id, setDateValue }) {
 
     return (
         <React.Fragment>
-            <EditCalendarOutlinedIcon onClick={handleClickOpen} />
-            <BootstrapDialog
+            <EditIcon sx={{
+                color: 'purple',
+                fontSize: "30px",
+                cursor: 'pointer',
+                transition: 'color 0.3s ease',
+                '&:hover': {
+                    color: 'blue',
+                    transform: 'scale(1.2)'
+                }
+            }} onClick={handleClickOpen} />            <BootstrapDialog
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}

@@ -20,6 +20,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { io } from 'socket.io-client';
 import UpdateScheduled from './UpdateScheduled';
 
+import AddIcon from '@mui/icons-material/Add';
+
 
 
 export default function Scheduled() {
@@ -153,13 +155,13 @@ console.log('getTomorrowDate()', getTomorrowDate())
 
 
         <div>
-          <h2>"Plan Your Future Tasks"</h2>
+          <h1>"Plan Future Tasks"</h1>
         </div>
 
-        <div className='HeadBtn'>
+        <div className='HeadBtnScheduled'>
           <React.Fragment>
             <Button aria-hidden="true" variant="outlined" onClick={handleClickOpen}>
-              Add Todo
+            <AddIcon />  Add 
             </Button>
             <Dialog
               open={open}
@@ -228,7 +230,7 @@ console.log('getTomorrowDate()', getTomorrowDate())
 
       {filteredScheduledDate.length > 0 ? (
         filteredScheduledDate.map((value, index) => (
-          <div className='todayMappedList' key={index}>
+          <div className='scheduledMappedList' key={index}>
 
             <div className='list one'>
               {/* <Checkbox
@@ -265,7 +267,7 @@ console.log('getTomorrowDate()', getTomorrowDate())
 
           </div>
         ))
-      ) : (<div><p>Today no task left</p></div>)}
+      ) : (<div className='noTask'><p className='noPara'>Today no task left</p></div>)}
 
 
     </div>

@@ -1,20 +1,22 @@
 .pending {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    padding: 10px;
+    gap: 40px;
 }
 
 .pendingMappedList {
-    border: 1px solid black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    /* padding: 10px; */
     align-items: center;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
 .list {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -57,4 +59,39 @@
     100% {
         background-color: red;
     }
+}
+
+.noTask {
+    /* border: 1px solid black; */
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.noPara {
+    color: black;
+    font-size: 30px;
+    font-weight: 600;
+    animation-name: notask;
+    animation-timing-function: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes notask {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.one p,
+.two p {
+    color: black;
+    font-weight: 600;
 }

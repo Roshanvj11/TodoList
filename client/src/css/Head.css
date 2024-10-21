@@ -1,20 +1,42 @@
-.Head{
-    border: 1px solid black;
+.Head {
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 10px;
+    align-items: center;
+    height: 8vh;
+    /* padding: 10px; */
     gap: 20px;
+    /* background-color: #fd835e; */
+    background-color: rgb(49, 40, 40);
+
 }
 
-.HeadName{
-    border: 1px solid black;
+.HeadName {
+    /* border: 1px solid black; */
     display: flex;
     flex-direction: row;
     gap: 20px;
     justify-content: center;
     align-items: center;
-    width: 200px;
+    width: 300px;
 
 }
 
+.HeadName p {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.HeadBtn Button {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: #6256CA;
+    font-weight: 700;
+}
+
+.HeadBtn {
+    width: 150px;
+}

@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { useUserContext } from '../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function Head() {
   const navigate = useNavigate();
@@ -23,13 +25,17 @@ export default function Head() {
     <div className='Head'>
 
       <div className='HeadName'>
-        <p>logo</p>
-        <p>{user ? `${user.name}` : 'Loading user data...'}</p>
+        <AccountCircleIcon style={{
+          fontSize:'50px',
+          backgroundColor:'white',
+          borderRadius:'50px',
+          color:'#6256CA'}}/>
+        <p>{user ? `${user.name}` : 'Loading ..'}</p>
       </div>
 
       <div className='HeadBtn'>
         <Button variant="contained" onClick={handleClick}>
-          Logout
+          <LogoutIcon/> Logout
         </Button>
       </div>
 
