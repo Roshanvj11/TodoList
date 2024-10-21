@@ -4,6 +4,8 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import '../css/Login.css';
+
 
 
 
@@ -40,14 +42,14 @@ export default function Login() {
 
       <div className='LoginForm'>
 
-        <div>
+        <div className='Loginhead'>
           <h1>Login</h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          <div className='LoginForm'>
 
-            <div>
+            <div className='LoginField'>
               <TextField id="standard-basic" label="Username" variant="standard"
                 {...register('username', {
                   required: 'username is required',
@@ -59,8 +61,8 @@ export default function Login() {
               {errors.username && <p className='errorMsg' style={{ color: 'red' }}>{errors.username.message}</p>}
             </div>
 
-            <div>
-              <TextField id="standard-basic" label="Password" variant="standard"
+            <div className='LoginField'>
+              <TextField id="standard-basic" label="Password" type='password' variant="standard"
                 {...register('password', {
                   required: 'password is required'
                 })} />
@@ -70,13 +72,13 @@ export default function Login() {
 
           </div>
 
-          <div>
+          <div className='LoginBtn'>
             <Button variant="contained" type='submit'>Login</Button>
           </div>
 
         </form>
 
-        <div>
+        <div className='LoginNavigation'>
           <p>Not a Member ?<Button onClick={() => handleClick('/registor')} href="#text-buttons">Signup</Button></p>
         </div>
 

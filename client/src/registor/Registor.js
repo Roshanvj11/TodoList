@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-
+import '../css/Registor.css'
 
 
 export default function Registor() {
@@ -36,14 +36,14 @@ export default function Registor() {
 
       <div className='RegistorForm'>
 
-        <div>
+        <div className='RegistorHead'>
           <h1>Sign Up</h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          <div className='RegistorForm'>
 
-            <div>
+            <div className='RegistorField'>
               <TextField id="standard-basic" label="Username" variant="standard"
                 {...register('username', {
                   required: 'Username is required',
@@ -54,7 +54,7 @@ export default function Registor() {
               {errors.email && <p className='errorMsg' style={{ color: 'red' }}>{errors.email.message}</p>}
             </div>
 
-            <div>
+            <div className='RegistorField'>
               <TextField id="standard-basic" label="Email" variant="standard"
                 {...register('email', {
                   required: 'Email is required',
@@ -66,8 +66,8 @@ export default function Registor() {
               {errors.email && <p className='errorMsg' style={{ color: 'red' }}>{errors.email.message}</p>}
             </div>
 
-            <div>
-              <TextField id="standard-basic" label="Password" variant="standard"
+            <div className='RegistorField'>
+              <TextField id="standard-basic" label="Password" type='password' variant="standard"
                 {...register('password', {
                   required: 'Password is required',
                   minLength: {
@@ -78,8 +78,8 @@ export default function Registor() {
               {errors.password && <p className='errorMsg' style={{ color: 'red' }}>{errors.password.message}</p>}
             </div>
 
-            <div>
-              <TextField id="standard-basic" label="Confirm Password" variant="standard"
+            <div className='RegistorField'>
+              <TextField id="standard-basic" label="Confirm Password" type='password' variant="standard"
                 {...register('confirmPassword', {
                   required: 'confirmPassword is required',
                   minLength: {
@@ -93,12 +93,12 @@ export default function Registor() {
 
           </div>
 
-          <div>
+          <div className='RegistorBtn'>
             <Button variant="contained" type='submit'>Sign Up</Button>
           </div>
         </form>
 
-        <div>
+        <div className='RegistorNavigation'>
           <p>Already Have an Account ? <Button onClick={() => handleClick('/login')} href="#text-buttons">Login</Button></p>
         </div>
 

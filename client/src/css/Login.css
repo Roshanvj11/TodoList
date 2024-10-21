@@ -1,0 +1,85 @@
+.Login {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../Images/TodoBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 10px;
+    height: 100vh;
+}
+
+.LoginForm {
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1), 0 6px 20px rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.Loginhead {
+    border: 1px solid rgba(177, 30, 210);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 10px 0px 0px;
+    background-color: rgba(177, 30, 210);
+    padding: 10px;
+    width: 400px;
+    border-bottom: 2px solid rgba(177, 30, 210);
+
+}
+
+.Loginhead h1 {
+    color: white;
+    font-weight: 800;
+}
+
+.LoginField {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#standard-basic {
+    width: 300px;
+
+}
+
+.LoginBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.LoginBtn Button {
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    font-weight: 700;
+    /* background-color: rgb(210, 30, 30); */
+}
+
+.LoginNavigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 400px;
+}
+
+.errorMsg {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 300px;
+}

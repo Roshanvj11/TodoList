@@ -2,7 +2,8 @@
   margin: 0;          /* Removes default margin */
   padding: 0;         /* Removes default padding */
   box-sizing: border-box; /* Ensures padding and borders don't affect element width/height */
-  /* font-family: Arial, sans-serif; Set a global font */
+  font-family: sans-serif;
+
 }
 /* .App-logo {
   height: 40vmin;
