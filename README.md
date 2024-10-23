@@ -1,0 +1,8 @@
+![Main Page](https://github.com/user-attachments/assets/17f6d33d-a3ec-4b4c-9180-725a32ec81e0)
+![Register page](https://github.com/user-attachments/assets/2e45a930-817a-4055-99f7-891f64c11190)
+![Login page'](https://github.com/user-attachments/assets/6cdbc961-6126-4c12-a307-45299d95b5ea)
+![Today Task](https://github.com/user-attachments/assets/2d673b4a-d1d4-4851-92c9-7109b5776ecb)
+![Scheduled Task](https://github.com/user-attachments/assets/6c3b8a3c-6d78-40e3-9ba7-c4d543e0d172)
+![Pending Task](https://github.com/user-attachments/assets/43c84bed-8545-4fcd-b87d-01035561031c)
+![Add Task](https://github.com/user-attachments/assets/f1fc9f30-6d2f-4d55-bf87-71c5018dab8e)
+![Edit Task](https://github.com/user-attachments/assets/6f0274c6-eb41-497f-9770-8b09bf9adeaf)
