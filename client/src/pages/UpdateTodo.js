@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { io } from 'socket.io-client';
+// import '../css/UpdateTodo.css';
 
 
 
@@ -73,7 +74,7 @@ export default function UpdateTodo({ id, setDateValue }) {
 
     return (
         <React.Fragment>
-            <EditIcon sx={{
+            <EditIcon id='updateTodo' sx={{
                 color: 'purple',
                 fontSize: "30px",
                 cursor: 'pointer',

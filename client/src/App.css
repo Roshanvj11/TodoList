@@ -8,3 +8,10 @@
   font-family: sans-serif;
 
 }
+
+@media (max-width: 480px) {
+  * {
+    font-size: 10px;
+    font-weight: 100;
+  }
+}

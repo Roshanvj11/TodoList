@@ -40,3 +40,28 @@
 .HeadBtn {
     width: 150px;
 }
+
+@media (max-width: 480px) {
+  .Head{
+    width: 100%;
+  }  
+  .HeadName p{
+    font-size: 16px;
+  }
+  .HeadLogo{
+    font-size: 20px;
+  }
+  .HeadName{
+    padding-right: 28px;
+  }
+  .HeadBtn{
+    padding-left: 20px;
+  }
+  .HeadBtn Button {
+    width: 100px;
+    font-size: 10px;
+  }
+  #Logout{
+    font-size: 18px;
+  }
+}

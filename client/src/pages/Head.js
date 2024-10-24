@@ -25,7 +25,7 @@ export default function Head() {
     <div className='Head'>
 
       <div className='HeadName'>
-        <AccountCircleIcon style={{
+        <AccountCircleIcon className='HeadLogo' style={{
           fontSize:'50px',
           backgroundColor:'white',
           borderRadius:'50px',
@@ -35,7 +35,7 @@ export default function Head() {
 
       <div className='HeadBtn'>
         <Button variant="contained" onClick={handleClick}>
-          <LogoutIcon/> Logout
+          <LogoutIcon id='Logout'/> Logout
         </Button>
       </div>
 

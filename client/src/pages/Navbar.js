@@ -12,9 +12,9 @@ export default function Layout() {
         <div className="navbar" >
 
             <div className='navbarLink'>
-                <Link style={{textDecoration:'none'}} className='headLink' to='/today'> <TodayIcon sx={{fontSize:"30px"}} />Today </Link>
-                <Link style={{textDecoration:'none'}} className='headLink' to='/scheduled'><EditCalendarIcon sx={{fontSize:"30px"}} />Scheduled </Link>
-                <Link style={{textDecoration:'none'}} className='headLink' to='/pending'> <PendingActionsIcon sx={{fontSize:"30px"}} />Pending </Link>
+                <Link style={{textDecoration:'none'}} className='headLink' to='/today'> <TodayIcon id='navLogo1' sx={{fontSize:"30px"}} />Today </Link>
+                <Link style={{textDecoration:'none'}} className='headLink' to='/scheduled'><EditCalendarIcon id='navLogo2' sx={{fontSize:"30px"}} />Scheduled </Link>
+                <Link style={{textDecoration:'none'}} className='headLink' to='/pending'> <PendingActionsIcon id='navLogo3' sx={{fontSize:"30px"}} />Pending </Link>
             </div>
 
         </div>
