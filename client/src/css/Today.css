@@ -89,3 +89,10 @@
     color: black;
     font-weight: 600;
 }
+
+@media (max-width:480px) {
+    .todayHead h1{
+        font-size: 20px;
+        font-weight: 600;
+    }
+}

@@ -1,5 +1,5 @@
 .navbar {
-    min-height: 80vh;
+    height: 80vh;
 }
 
 .navbarLink {
@@ -10,11 +10,12 @@
     align-items: center;
     padding: 30px;
     width: 260px;
-    min-height: 80vh;
+    height: 80vh;
     background-color: #C68FE6;
     border-right: 3px solid white;
     border-radius: 10px 0px 0px 10px;
     gap: 60px;
+    
 }
 
 .headLink {
@@ -29,9 +30,35 @@
     border-radius: 10px;
     padding: 10px;
     gap: 10px;
-    transition: border 0.3s linear; 
+    transition: border 0.3s linear;
 }
 
 .headLink:hover {
     border: 2px solid white;
+}
+
+@media (max-width:480px) {
+    .navbar {
+        height: 12vh;
+        width: 100%;
+    }
+
+    .navbarLink {
+        height: 12vh;
+        width: 100%;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 10px 10px 0px 0px;
+        border-bottom: 3px solid white;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+ 
+    #navLogo1,
+    #navLogo2,
+    #navLogo3 {
+        font-size: 20px;
+    }
 }

@@ -22,3 +22,20 @@
     border-radius: 10px;
     min-height: 80vh;
 }
+
+@media (max-width:480px) {
+    .Layout {
+        width: 100%;
+
+    }
+
+    .innerLayout {
+        display: flex;
+        flex-direction: column;
+        min-height: 80vh;
+    }
+
+    .outlet {
+        min-height: 80vh;
+    }
+}

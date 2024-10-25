@@ -1,0 +1,5 @@
+@media (max-width:480px) {
+    #updateTodo{
+        font-size: 20px;
+    }
+}
