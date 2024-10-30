@@ -19,6 +19,9 @@
 
 }
 
+.innerMain :hover {
+    background-color: rgb(253, 185, 225);
+}
 
 
 .Mainhead {
